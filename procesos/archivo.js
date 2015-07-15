@@ -35,7 +35,7 @@ router.route('/validar').post(function(req, res){
     
     console.log("usuario" , usuario);
     console.log('contraseña:', clave);
-    BaseDatos.validarUsuario(req , res , 'select activo  from usuarios_vpn where usuario='+"'"+usuario+"' && clave ='" +clave +"'")
+    BaseDatos.validarUsuario(req , res , 'select activo , id_u from usuarios_vpn where usuario='+"'"+usuario+"' && clave ='" +clave +"'")
     
 })
 

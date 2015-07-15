@@ -50,13 +50,16 @@ app.factory("auth", function ($cookies, $cookieStore, $location, $http, $window)
                     $window.alert("ERROR : Su usuario o contraseña son incorrectos")
                 } else {
                     if (informacion[0].activo === 'SI') {
-
+                        //asignamos el valor del id a la varibale datos para comprobar el codigo 
+                        datos = {
+                            id: informacion[0].id_u
+                        };
                         $window.alert("MENSAJE: " + "\n" + "Bienvenido usuario -> " + username);
                         //creamos la cookie con el nombre que nos han pasado como usuario
-                        $cookies.put('username' , username);
-                        
+                        $cookies.put('username', username);
+
                         $location.path('/proceso');
-//                        console.log("ruta ", $window.location.pathname);
+                        //                        console.log("ruta ", $window.location.pathname);
                     }
                 }
 
@@ -78,13 +81,14 @@ app.factory("auth", function ($cookies, $cookieStore, $location, $http, $window)
             accesoCookie = $cookies.get('username');
             // en caso de que el usuario intente accerder a los procesos sin estar logueado
             if (this.in_array($location.path(), rutasPrivadas) && typeof (accesoCookie) == "undefined") {
-//                 $window.alert('Mensaje : ' + '\n' + 'inicie Sesion para tener acceso a la ruta , Gracias..');
+                //                 $window.alert('Mensaje : ' + '\n' + 'inicie Sesion para tener acceso a la ruta , Gracias..');
                 $location.path("/");
             }
             //en el caso de que intente acceder al login y ya haya iniciado sesión lo mandamos a la home
             if (this.in_array("/", rutasPrivadas) && typeof (accesoCookie) != "undefined") {
 
-                // redireccionamos a la ruta
+                // redireccionamos a la ruta 
+
                 $location.path("/proceso");
             }
         },
@@ -104,11 +108,11 @@ app.factory("auth", function ($cookies, $cookieStore, $location, $http, $window)
 
 
 //creamos el controlador pasando $scope y $http, así los tendremos disponibles
-app.controller('loginController', function ($scope, auth, $cookieStore, $window , $cookies) {
+app.controller('loginController', function ($scope, auth, $cookieStore, $window, $cookies) {
 
     // al cargar la pagina borramos las cookies 
-//    $cookieStore.remove("username");
-//    console.log("ruta ", $window.location.pathname);
+    //    $cookieStore.remove("username");
+    //    console.log("ruta ", $window.location.pathname);
 
     $scope.login = function () {
         auth.login($scope.username, $scope.password);
