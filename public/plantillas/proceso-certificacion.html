@@ -1,0 +1,53 @@
+<body>
+    <div id="principal">
+        <input type="file" selection-model="file" id="file">
+        <input type="button" ng-click="mostrarClave()" value="enviar">
+        <div id="servicios">
+            <table border="3">
+                <tr>
+                    <td>Nombre del archivo</td>
+                    <td>Servicios disponibles</td>
+                    <td>Cantidad</td>
+                </tr>
+                <tr ng-repeat="archivo in cargados track by $index">
+                    <td>
+                        <label>{{archivo.nombre}}</label>
+                    </td>
+                    <td>
+                        <select ng-model="$parent.servicios[$index]" ng-options="service.nombre_ta for service in services">
+                            <option value="">Seleccione una opcion</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" id="copias" ng-model="$parent.copias[$index]">
+                    </td>
+                    <td>
+                        <input type="button" value="ver" ng-click="mostrarPDF(archivo.ruta)">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+    <script type="text/ng-template" id="verPdf">
+        <!--<embed id="pdf" ng-src="{{rutas}}" height="500" width="500">-->
+        <iframe ng-src="{{rutas}}" frameborder="2" height="500" width="500"></iframe>
+        <br>
+        <label>{{rutas}} </label>
+    </script>
+
+    <script type="text/ng-template" id="verClave">
+        <label>Por favor digite el codigo que corresponde a: </label>
+        <br>
+        <label>{{clave}}</label>
+        <input type="text" ng-model="respuesta">
+        <input type="button" value="Aceptar" ng-click="validar(respuesta)">
+    </script>
+
+
+<div ng-controller="homeController">
+    
+    <input type="button" value="logOut" ng-click="logout()">
+</div>
+
+</body>
