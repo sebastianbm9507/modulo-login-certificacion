@@ -84,6 +84,7 @@ app.factory("auth", function ($cookies, $cookieStore, $location, $http, $window)
             //en el caso de que intente acceder al login y ya haya iniciado sesión lo mandamos a la home
             if (this.in_array("/", rutasPrivadas) && typeof (accesoCookie) != "undefined") {
 
+                // redireccionamos a la ruta
                 $location.path("/proceso");
             }
         },
